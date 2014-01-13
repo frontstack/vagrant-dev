@@ -1,7 +1,7 @@
 $script = <<SCRIPT
 echo 'FrontStack provision script'
 hostname frontstack-dev
-bash /home/vagrant/scripts/setup.sh
+bash /home/vagrant/setup/setup.sh
 SCRIPT
 
 Vagrant.configure("2") do |config|
@@ -33,8 +33,8 @@ Vagrant.configure("2") do |config|
     v.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/frontstack-env", "1"]
   end
 
-  config.vm.synced_folder "../frontstack-env-x64", "/home/vagrant/frontstack-dev/", id: "frontstack-env"
-  config.vm.synced_folder "../vagrant/scripts/", "/home/vagrant/scripts/", id: "frontstack-scripts"
+  config.vm.synced_folder "../frontstack-env-x64", "/home/vagrant/frontstack-dev", id: "frontstack-env"
+  config.vm.synced_folder "../vagrant/setup", "/home/vagrant/setup", id: "frontstack-scripts"
 
   config.vm.provision "shell", inline: $script
   #config.vm.provision "shell" do |s|
